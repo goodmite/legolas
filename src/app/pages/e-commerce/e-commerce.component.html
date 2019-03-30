@@ -1,0 +1,51 @@
+<nb-card style="height: 100%" class="p-2 pb-0 mb-0">
+  <div class="row mx-0 mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <p class="title">My Apps</p>
+      <button nbButton
+              (click)="open2(dialog)"
+              class="btn btn-hero-success" [size]="'xxsmall'">Create New App</button>
+    </div>
+  </div>
+
+  <div class="row mx-0 application-row">
+    <div class="application-container pt-3">
+      <div class="p-2">
+        <nb-card class="p-1" [accent]="'info'" *ngFor="let i of [1,2,3,5]">
+          <div class="d-flex align-items-center p-2">
+            <span>App name 1</span>
+
+            <div class="d-flex ml-auto">
+              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'">Copy request</button>
+              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'">Edit</button>
+              <button nbButton class="btn btn-hero-danger mr-1" [size]="'xxsmall'">Delete</button>
+            </div>
+
+          </div>
+        </nb-card>
+      </div>
+
+      <!--<app-splash-screen style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"-->
+      <!--headingText="No app"-->
+      <!--descriptionText="Create one to see it"></app-splash-screen>-->
+
+    </div>
+  </div>
+
+</nb-card>
+
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Create Application</nb-card-header>
+    <nb-card-body>
+      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group" style="width: 450px">
+        <input type="text" nbInput fullWidth placeholder="Project">
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="createNewAppHandler(createAppForm.value); ref.close()">Close Dialog</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
