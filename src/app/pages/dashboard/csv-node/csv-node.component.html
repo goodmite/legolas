@@ -1,0 +1,79 @@
+<div style="height: 100%; display: flex; flex-direction: column; ">
+  <div style="height: 60px; display: flex; align-items: flex-start; margin-bottom: 10px">
+    <div class="mr-auto">
+      <h2>Node name</h2>
+      <p>CSV data node</p>
+    </div>
+    <button class="btn btn-primary" style="line-height: 3px; margin-top: 10px; font-size: 11px; margin-right: 10px">Create</button>
+    <button class="btn btn-danger" style="line-height: 3px; margin-top: 10px; font-size: 11px">Cancel</button>
+
+  </div>
+  <div style="flex-grow: 1" class="d-flex">
+    <div style="width: 100%">
+      <div style="width: 100%; border: 1px solid #3d3780;" class="p-2">
+        <div style="width: 70%; ">
+          <h4>Custom File</h4>
+
+          <div class="d-flex">
+            <div class="d-flex align-items-center mr-2" style="flex-grow: 1">
+              <label for="" class="mr-1 m-0" style="width: 100px">File name</label>
+              <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth>
+            </div>
+            <div class="d-flex align-items-center mr-1" style="flex-grow: 1">
+              <label for="" class="mr-1 m-0" style="flex-shrink: 0">Display name</label>
+              <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="line-height: 3px; margin-top: 10px; font-size: 11px">+ Add Output</button>
+        </div>
+      </div>
+      <div style="width: 100%; border: 1px solid #3d3780;" class="p-2">
+        <h3>Script</h3>
+        <textarea placeholder="Paste script here" style="width: 100%; height: 150px" ngModel name="name" type="text" nbInput fullWidth></textarea>
+      </div>
+      <div style="width: 100%; border: 1px solid #3d3780;" class="p-2">
+        <div style="width: 50%; ">
+          <h4>Output</h4>
+          <div [(ngModel)]="radioModel" (ngModelChange)="test($event)" ngbRadioGroup
+               style="width: 250px; margin-left: 10px"
+               class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group m-0">
+            <label
+              style="
+    display: flex;
+    justify-content: center;
+    align-items: center;"
+              ngbButtonLabel class="btn btn-outline-primary p-1">
+              <input ngbButton type="radio" value="script"> Script
+            </label>
+            <label
+              style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+"
+              ngbButtonLabel class="btn btn-outline-primary p-1">
+              <input ngbButton type="radio" value="data"> Data
+            </label>
+          </div>
+
+          <h5 style="margin-top: 10px">Output 1</h5>
+          <div class="d-flex">
+            <div class="d-flex align-items-center mr-2" style="flex-grow: 1">
+              <label for="" class="mr-1 m-0">Key</label>
+              <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth placeholder="Project">
+            </div>
+            <div class="d-flex align-items-center mr-1" style="flex-grow: 1">
+              <label for="" class="mr-1 m-0" style="flex-shrink: 0">Display name</label>
+              <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth placeholder="Project">
+            </div>
+          </div>
+          <button class="btn btn-primary" style="line-height: 3px; margin-top: 10px; font-size: 11px">+ Add Output</button>
+        </div>
+      </div>
+    </div>
+    <div style="width: 400px;height: 100%; border: 1px solid #3d3780;margin-left: auto" class="p-3">
+      <h5>Preview</h5>
+    </div>
+  </div>
+</div>
+

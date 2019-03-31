@@ -1,43 +1,121 @@
-<div class="row">
-  <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
-    <ngx-status-card [title]="statusCard.title"
-                     [type]="statusCard.type">
-      <i [ngClass]="statusCard.iconClass"></i>
-    </ngx-status-card>
+<nb-card class="d-flex flex-column p-2 pb-0 mb-0" style="height: 100%">
+  <div style="display: flex;">
+    <h1 class="m-1">My nodes</h1>
+    <button nbButton class="btn mr-1 ml-auto" [size]="'xxsmall'" (click)="open2(dataModal)">Create New Script</button>
+    <button nbButton class="btn " [size]="'xxsmall'" (click)="open2(dataModal)">Create New Data node</button>
   </div>
-</div>
+  <div class="my-2" style="display: flex">
 
-<div class="row">
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-    <ngx-temperature></ngx-temperature>
-  </div>
-
-  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6">
-    <ngx-electricity></ngx-electricity>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xxxl-9 col-xl-12">
-    <ngx-rooms></ngx-rooms>
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
-    <ngx-contacts></ngx-contacts>
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-    <ngx-solar [chartValue]="solarValue"></ngx-solar>
-
-    <ngx-kitten></ngx-kitten>
+    <div [(ngModel)]="radioModel" (ngModelChange)="test($event)" ngbRadioGroup
+         style="width: 250px; margin-left: 10px"
+         class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group">
+      <label
+        style="
+    display: flex;
+    justify-content: center;
+    align-items: center;"
+        ngbButtonLabel class="btn btn-outline-primary p-1">
+        <input ngbButton type="radio" value="control"> Control
+      </label>
+      <label
+        style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+"
+        ngbButtonLabel class="btn btn-outline-primary p-1">
+        <input ngbButton type="radio" value="value"> Value
+      </label>
+    </div>
   </div>
 
-  <div class="col-xxxl-3 col-xxl-4 col-md-5">
-    <ngx-traffic></ngx-traffic>
-    <ngx-weather></ngx-weather>
-  </div>
+  <div class="row mx-0 application-row w-100">
+    <div class="application-container pt-3 w-100">
+      <div class="p-2">
+        <nb-card class="p-1" [accent]="'info'" *ngFor="let i of [1,2,3,5]">
+          <div class="d-flex align-items-center p-2">
+            <span>Node name {{i}}</span>
 
-  <div class="col-xxxl-6 col-xxl-12 col-md-7">
-    <ngx-security-cameras></ngx-security-cameras>
+            <div class="d-flex ml-auto">
+              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'">Edit</button>
+              <button nbButton class="btn btn-hero-danger mr-1" [size]="'xxsmall'">Delete</button>
+            </div>
+
+          </div>
+        </nb-card>
+      </div>
+
+      <app-splash-screen style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+                         headingText="No app"
+                         descriptionText="Create one to see it"></app-splash-screen>
+
+    </div>
   </div>
-</div>
+</nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Create Script Node</nb-card-header>
+    <nb-card-body>
+      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group"
+            style="width: 450px">
+        <label for="">Node name</label>
+        <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
+        <br>
+        <label for="">Description name</label>
+        <textarea ngModel name="name" type="text" nbInput fullWidth placeholder="Project"></textarea>
+        <br>
+        <div class="form-group">
+          <label>Multiple Select</label>
+          <select class="form-control">
+            <option>Combo box</option>
+            <option>Combo box</option>
+            <option>Combo box</option>
+          </select>
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">Close Dialog</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<ng-template #dataModal let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Create Data Node</nb-card-header>
+    <nb-card-body>
+      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group"
+            style="width: 450px">
+        <label for="">Node name</label>
+        <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
+
+        <div class="form-group mt-2">
+          <label for="">Data type</label>
+          <nb-radio-group [(value)]="radioGroupValue" style="display: flex; align-content: center">
+            <nb-radio
+              [value]="'This is value 1'">
+              CSV
+            </nb-radio>
+            <nb-radio
+              [value]="'This is value 2'">
+              Custom
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+
+        <br>
+        <div class="form-group">
+          <label>Multiple Select</label>
+          <input class="form-control" type="file">
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()" class="mr-1">Close</button>
+      <button nbButton (click)="goToNodePage();ref.close(); ">Upload and Create</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+

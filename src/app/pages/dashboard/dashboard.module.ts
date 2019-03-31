@@ -20,11 +20,17 @@ import { SolarComponent } from './solar/solar.component';
 import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
+import {SplashScreenComponent} from "../e-commerce/splash-screen/splash-screen.component";
+import {SharedModule} from "../shared/shared.module";
+import { NodeComponent } from './node/node.component';
+import { CsvNodeComponent } from './csv-node/csv-node.component';
+import { EnvironmentComponent } from './environment/environment.component';
 
 @NgModule({
   imports: [
     ThemeModule,
     NgxEchartsModule,
+    SharedModule
   ],
   declarations: [
     DashboardComponent,
@@ -44,6 +50,11 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    // EnvironmentComponent,
+    // CsvNodeComponent,
   ],
 })
 export class DashboardModule { }
+
+
+

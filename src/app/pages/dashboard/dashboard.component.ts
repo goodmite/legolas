@@ -1,7 +1,8 @@
-import {Component, OnDestroy} from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
+import {Component, OnDestroy, TemplateRef} from '@angular/core';
+import {NbDialogService, NbThemeService} from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators' ;
 import { SolarData } from '../../@core/data/solar';
+import {Router} from "@angular/router";
 
 interface CardSettings {
   title: string;
@@ -17,7 +18,8 @@ interface CardSettings {
 export class DashboardComponent implements OnDestroy {
 
   private alive = true;
-
+  radioModel = 'script';
+  radioGroupValue;
   solarValue: number;
   lightCard: CardSettings = {
     title: 'Light',
@@ -77,6 +79,8 @@ export class DashboardComponent implements OnDestroy {
   };
 
   constructor(private themeService: NbThemeService,
+              private dialogService: NbDialogService,
+              private router: Router,
               private solarService: SolarData) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
@@ -93,5 +97,27 @@ export class DashboardComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.alive = false;
+  }
+
+  test(data){
+    console.log(data);
+  }
+
+  open2(dialog: TemplateRef<any>) {
+    this.dialogService.open(
+      dialog,
+      {context: 'this is some additional data passed to dialog'});
+  }
+
+  createScript(){
+
+  }
+
+  createData(){
+
+  }
+
+  goToNodePage(){
+    this.router.navigate(['pages/node']);
   }
 }
