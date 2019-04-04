@@ -1,3 +1,31 @@
-<p>
-  output-form works!
-</p>
+<div>
+  <h1 style="font-size: 16px">Start node</h1>
+  <p>Value output</p>
+  <form #outputForm='ngForm' style="padding: 0 10px">
+    <div *ngFor="let i of [1]">
+      <p>Output {{i}}</p>
+      <div style="display: flex;align-items: center; margin-bottom: 4px">
+        <label class="mr-1" style="width: 100px" for="">Key</label>
+        <input ngModel name="key" fieldSize="small" type="text" nbInput fullWidth placeholder="Key">
+      </div>
+      <div style="display: flex;align-items: center; margin-bottom: 4px">
+        <label style="width: 100px" for="">Name</label>
+        <input ngModel name="key" fieldSize="small" type="text" nbInput fullWidth placeholder="Name">
+      </div>
+      <div style="display: flex;align-items: center; margin-bottom: 4px">
+        <label style="width: 100px" for="">Data type</label>
+        <input ngModel name="key" fieldSize="small" type="text" nbInput fullWidth placeholder="Data type">
+      </div>
+    </div>
+  </form>
+
+  <button class="btn btn-primary" style="line-height: 0px; margin-top: 10px; font-size: 11px">+ Add Output</button>
+  <hr style="border-color: #3d3780">
+  <div class="d-flex align-items-center mb-1">
+    <h6 class="m-0">Test Applications</h6>
+    <button style="line-height: 1px;font-size: 11px" nbButton class="btn mr-1 ml-auto" [size]="'xxsmall'"
+            (click)="openTestModal$.emit()">Test</button>
+  </div>
+  <textarea style="height: 150px" ngModel name="name" type="text" nbInput fullWidth placeholder="Project"></textarea>
+
+</div>

@@ -1,11 +1,27 @@
 <nb-layout>
   <nb-layout-column>
-    <nb-card>
-      <nb-card-body>
-        <p>Current User Authenticated: {{ !!token }}</p>
-        <p>Current User Token: {{ token|json }}</p>
-        <button nbButton status="success" *ngIf="!token" (click)="login()">Sign In with Google</button>
-        <button nbButton status="warning" *ngIf="token" (click)="logout()">Sign Out</button>
+    <nb-card style="height: 100%">
+      <nb-card-header>
+        <h2>LEGOLAS</h2>
+      </nb-card-header>
+      <nb-card-body style="height: 100%; display: flex; justify-content: center; align-items: center">
+          <div style="height: 350px; width: 500px; border: 1px solid #2f296b" class="p-4 pt5">
+            <h4 class="text-center mt-3">Login</h4>
+            <form #loginForm="ngForm" (ngSubmit)="loginHandler(loginForm.value)" class="input-group"
+                  style="width: 450px; margin-bottom: 10px">
+              <label style="margin-top: 10px" for="">Email</label>
+              <input ngModel required email name="email" type="text" nbInput fullWidth placeholder="Email">
+              <label style="margin-top: 10px" for="">Password</label>
+              <input ngModel required name="password" nbInput fullWidth placeholder="Password">
+              <button  [disabled]="!loginForm.valid" class="btn btn-primary" style="line-height: 12px; margin-top: 10px; font-size: 11px">
+                Login
+                <i *ngIf="loading" class="fa fa-spinner fa-spin mx-1"></i>
+                <!--<i *ngIf="!loading" class="fa fa-sign-in mr-1"></i>-->
+              </button>
+            </form>
+            <i style="font-size: 11px">{{message}}</i>
+
+          </div>
       </nb-card-body>
     </nb-card>
   </nb-layout-column>

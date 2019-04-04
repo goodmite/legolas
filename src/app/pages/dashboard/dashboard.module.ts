@@ -25,6 +25,7 @@ import {SharedModule} from "../shared/shared.module";
 import { NodeComponent } from './node/node.component';
 import { CsvNodeComponent } from './csv-node/csv-node.component';
 import { EnvironmentComponent } from './environment/environment.component';
+import { EnvironmentDetailComponent } from './environment/environment-detail/environment-detail.component';
 
 @NgModule({
   imports: [
@@ -50,6 +51,7 @@ import { EnvironmentComponent } from './environment/environment.component';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    EnvironmentDetailComponent,
     // EnvironmentComponent,
     // CsvNodeComponent,
   ],

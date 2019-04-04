@@ -8,6 +8,8 @@ import { ThemeModule } from '../@theme/theme.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { AppDetailComponent } from './app-detail/app-detail.component';
 import { OutputFormComponent } from './app-detail/output-form/output-form.component';
+import {SplashScreenComponent} from "./e-commerce/splash-screen/splash-screen.component";
+import {SharedModule} from "./shared/shared.module";
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -16,16 +18,20 @@ const PAGES_COMPONENTS = [
 @NgModule({
   imports: [
     PagesRoutingModule,
-    ThemeModule,
     DashboardModule,
     ECommerceModule,
     MiscellaneousModule,
+    ThemeModule,
+    SharedModule
   ],
   declarations: [
     ...PAGES_COMPONENTS,
     AppDetailComponent,
     OutputFormComponent,
   ],
+  exports:[
+
+  ]
 })
 export class PagesModule {
 }

@@ -1,0 +1,25 @@
+:host{
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+
+  .title{
+    width: 113px;
+    background-color: #3d3780;
+    left: 32px;
+    font-size: 25px;
+    color: white;
+  }
+  .application-row{
+    flex-grow: 1;
+    //border: 1px solid red;
+    //width: 100%;
+    .application-container{
+      height: 100%;
+      width: 100%;
+      //border: 1px solid white;
+      //position: relative;
+
+    }
+  }
+}

@@ -45,7 +45,12 @@ import { EarningCardBackComponent } from './earning-card/back-side/earning-card-
 import { EarningPieChartComponent } from './earning-card/back-side/earning-pie-chart.component';
 import { EarningCardFrontComponent } from './earning-card/front-side/earning-card-front.component';
 import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earning-live-update-chart.component';
-import {SplashScreenComponent} from "./splash-screen/splash-screen.component";
+// import {SplashScreenComponent} from "./splash-screen/splash-screen.component";
+import {RouterModule} from "@angular/router";
+import {SharedModule} from "../shared/shared.module";
+import {NodeComponent} from "../dashboard/node/node.component";
+import {CsvNodeComponent} from "../dashboard/csv-node/csv-node.component";
+import {EnvironmentComponent} from "../dashboard/environment/environment.component";
 
 @NgModule({
   imports: [
@@ -54,9 +59,14 @@ import {SplashScreenComponent} from "./splash-screen/splash-screen.component";
     NgxEchartsModule,
     NgxChartsModule,
     LeafletModule,
+    RouterModule,
+    SharedModule
   ],
   declarations: [
     ECommerceComponent,
+    NodeComponent,
+    CsvNodeComponent,
+    EnvironmentComponent,
     StatsCardFrontComponent,
     StatsAreaChartComponent,
     StatsBarAnimationChartComponent,
@@ -88,7 +98,8 @@ import {SplashScreenComponent} from "./splash-screen/splash-screen.component";
     EarningCardBackComponent,
     EarningPieChartComponent,
     EarningLiveUpdateChartComponent,
-    SplashScreenComponent
+    // SplashScreenComponent,
+
   ],
   providers: [
     CountryOrdersMapService,

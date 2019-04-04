@@ -20,4 +20,8 @@ export class EnvironmentComponent implements OnInit {
       {context: 'this is some additional data passed to dialog'});
   }
 
+  goToEvnDetailPage(){
+    this.router.navigate(['/pages/env-list']);
+  }
+
 }

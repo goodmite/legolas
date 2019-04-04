@@ -12,12 +12,12 @@
   <div class="row mx-0 application-row">
     <div class="application-container pt-3" style="width: 100%">
       <div class="p-2" style="width: 100%">
-        <nb-card class="p-1" [accent]="'info'" *ngFor="let i of [1,2,3,5]">
+        <nb-card class="p-1" [accent]="'info'" *ngFor="let i of [1,2]">
           <div class="d-flex align-items-center p-2">
-            <span>App name 1</span>
+            <span>Environment {{i}}</span>
 
             <div class="d-flex ml-auto">
-              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'">Edit</button>
+              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'" (click)="goToEvnDetailPage()">Edit</button>
               <button nbButton class="btn btn-hero-danger mr-1" [size]="'xxsmall'">Delete</button>
             </div>
 
@@ -69,7 +69,7 @@
     </nb-card-body>
     <nb-card-footer>
       <button nbButton (click)="ref.close()" class="mr-1">Close</button>
-      <button nbButton (click)="goToNodePage();ref.close(); ">Upload and Create</button>
+      <button nbButton (click)="goToEvnDetailPage();ref.close(); ">Upload and Create</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

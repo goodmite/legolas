@@ -5,6 +5,7 @@ import { UserData } from '../../../@core/data/users';
 import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import {NbAuthJWTToken, NbAuthService} from "@nebular/auth";
+import {AuthStoreService} from "../../../@auth/ngxs/auth-store.service";
 
 @Component({
   selector: 'ngx-header',
@@ -14,7 +15,7 @@ import {NbAuthJWTToken, NbAuthService} from "@nebular/auth";
 export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
-
+  myAuthStoreService = AuthStoreService;
   user: any;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];

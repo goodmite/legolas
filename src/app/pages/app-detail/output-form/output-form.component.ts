@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'ngx-output-form',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OutputFormComponent implements OnInit {
 
+  @Output() openTestModal$ = new EventEmitter();
   constructor() { }
 
   ngOnInit() {

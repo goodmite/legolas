@@ -10,42 +10,15 @@ import {
 } from '@nebular/auth';
 import {LoginComponent} from "./@auth/login/login.component";
 import {CallbackComponent} from "./@auth/callback/callback.component";
+import {LoginGaurdService} from "./login-gaurd.service";
 
 const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },//http://localhost:4200/#/pages/dashboard
   {
-    path: 'auth',
-    component: NbAuthComponent,
-    children: [
-      {
-        path: '',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'login',
-        component: LoginComponent,
-      },
-      {
-        path: 'callback',
-        component: CallbackComponent,
-      },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
-      },
-    ],
+    path: 'login',//http://localhost:4200/#/login
+    component: LoginComponent,
+    canActivate: [LoginGaurdService]
+
   },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },

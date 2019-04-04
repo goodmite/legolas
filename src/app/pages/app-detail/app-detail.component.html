@@ -1,4 +1,28 @@
-<p>
-  app-detail works!
-</p>
-<button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'">Copy request</button>
+<div style="height: 100%; display: flex">
+  <div>Editor here</div>
+  <div style="width: 240px; border: 1px solid #3d3780;margin-left: auto" class="p-3">
+    <ngx-output-form (openTestModal$)="open2(dataModal)"></ngx-output-form>
+  </div>
+</div>
+
+<ng-template #dataModal let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Test application</nb-card-header>
+    <nb-card-body>
+      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group"
+            style="width: 450px">
+        <label for="">Text data</label>
+        <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
+
+        <div class="form-group mt-2 w-100" >
+          <label for="">Key to extract</label>
+          <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
+        </div>
+      </form>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()" class="mr-1">Close</button>
+      <button nbButton (click)="goToEvnDetailPage();ref.close(); ">Upload and Create</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>

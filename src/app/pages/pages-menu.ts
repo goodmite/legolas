@@ -10,12 +10,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Nodes',
     icon: 'nb-home',
-    link: '/pages/iot-dashboard',
+    link: '/pages/node-list',
   },
   {
     title: 'Environment',
     icon: 'nb-home',
-    link: '/pages/iot-dashboard',
+    link: '/pages/env',
   },
   // {
   //   title: 'FEATURES',

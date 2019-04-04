@@ -1,46 +1,50 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NbAuthOAuth2Token, NbAuthResult, NbAuthService} from "@nebular/auth";
-import {takeWhile} from "rxjs/operators";
+import {catchError, finalize, switchMap, takeWhile, tap} from "rxjs/operators";
+import {ILoginFormData, IUser} from "../../interface";
+import {CustomAuthService} from "../auth.service";
+import {Store} from "@ngxs/store";
+import {SetUser} from "../ngxs/actions";
+import {Router} from "@angular/router";
+import {of} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
+import {AuthStoreService} from "../ngxs/auth-store.service";
 
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
 
-  token: NbAuthOAuth2Token;
+  loading: boolean = false;
+  message: string;
 
-  alive = true;
+  constructor(private authService: CustomAuthService, private store: Store, private router: Router) {}
 
-  constructor(private authService: NbAuthService) {
-    this.authService.onTokenChange()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((token: NbAuthOAuth2Token) => {
-        this.token = null;
-        if (token && token.isValid()) {
-          this.token = token;
-        }
-      });
-  }
+  loginHandler(loginFormData: ILoginFormData) {
+    if (!loginFormData) throw 'no login data';
+    this.loading = true;
+    this.message = 'Connecting to server';
+    this.authService.login(loginFormData)
+      .pipe(finalize(() => {
+          this.loading = false;
+        }),
+        switchMap((userData: IUser) => {
+          AuthStoreService.user = userData;
+          return this.store.dispatch(new SetUser({user: userData}));
+        }),
+        tap(() => {
+          this.router.navigate(['/pages/dashboard']);
+        }),
+        catchError((err: HttpErrorResponse) => {
+          let messageFromServer = err && err.error && err.error.message;
+          this.message = messageFromServer  || "Some error occurred. Please try again";
+          return of(1)
+        }),
+      )
+      .subscribe()
 
-  login() {
-    debugger;
-    this.authService.authenticate('google')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((authResult: NbAuthResult) => {
-      });
-  }
-
-  logout() {
-    this.authService.logout('google')
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((authResult: NbAuthResult) => {
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.alive = false;
   }
 
 }

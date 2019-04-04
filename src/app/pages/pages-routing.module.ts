@@ -6,6 +6,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import {AppDetailComponent} from "./app-detail/app-detail.component";
+import {NodeComponent} from "./dashboard/node/node.component";
+import {CsvNodeComponent} from "./dashboard/csv-node/csv-node.component";
+import {EnvironmentComponent} from "./dashboard/environment/environment.component";
+import {EnvironmentDetailComponent} from "./dashboard/environment/environment-detail/environment-detail.component";
 
 const routes: Routes = [{
   path: '',
@@ -17,8 +21,20 @@ const routes: Routes = [{
     path: 'app',
     component: AppDetailComponent,
   }, {
-    path: 'iot-dashboard',
+    path: 'node-list',
     component: DashboardComponent,
+  },{
+    path: 'node',
+    component: NodeComponent,
+  },{
+    path: 'csv-node',
+    component: CsvNodeComponent,
+  }, {
+    path: 'env-list',
+    component: EnvironmentDetailComponent,
+  }, {
+    path: 'env',
+    component: EnvironmentComponent,
   }, {
     path: 'ui-features',
     loadChildren: './ui-features/ui-features.module#UiFeaturesModule',
