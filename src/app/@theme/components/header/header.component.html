@@ -7,7 +7,6 @@
   </div>
   <!--<ngx-theme-switcher></ngx-theme-switcher>-->
 </div>
-
 <div class="header-container">
   <ngx-layout-direction-switcher></ngx-layout-direction-switcher>
   <nb-actions
@@ -15,7 +14,7 @@
     [class.right]="position === 'normal'"
     [class.left]="position === 'inverse'">
     <nb-action *nbIsGranted="['view', 'user']" >
-      <nb-user [nbContextMenu]="userMenu" [name]="myAuthStoreService.user.name" [picture]="user?.picture"></nb-user>
+      <nb-user [nbContextMenu]="userMenu" [name]="myAuthStoreService?.user?.name" [picture]="user?.picture"></nb-user>
     </nb-action>
     <!--<nb-action class="control-item" disabled icon="nb-notifications"></nb-action>-->
     <!--<nb-action class="control-item" icon="nb-email"></nb-action>-->
