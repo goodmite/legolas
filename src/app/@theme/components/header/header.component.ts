@@ -6,6 +6,7 @@ import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import {NbAuthJWTToken, NbAuthService} from "@nebular/auth";
 import {AuthStoreService} from "../../../@auth/ngxs/auth-store.service";
+import {CustomAuthService} from "../../../@auth/auth.service";
 
 @Component({
   selector: 'ngx-header',
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserData,
+              private customAuthService: CustomAuthService,
               private authService: NbAuthService,
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService) {
@@ -56,5 +58,17 @@ export class HeaderComponent implements OnInit {
 
   startSearch() {
     this.analyticsService.trackEvent('startSearch');
+  }
+
+  getInitials(name): string {
+    if (name) {
+      const names = name.split(' ');
+      return names.map(n => n.charAt(0)).splice(0, 2).join('').toUpperCase();
+    }
+    return '';
+  }
+
+  logout(){
+    this.customAuthService.logout()
   }
 }

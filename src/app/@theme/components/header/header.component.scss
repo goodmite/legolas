@@ -209,4 +209,15 @@
       display: none;
     }
   }
+
+  .box_initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00abd3;
+    color: white;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
 }

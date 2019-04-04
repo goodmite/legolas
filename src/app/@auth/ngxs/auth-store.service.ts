@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import {IUser} from "../../interface";
+import {Select} from "@ngxs/store";
+import {Observable} from "rxjs";
+import {IAuthState} from "./state";
+import {take, takeWhile} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthStoreService {/*A facade service for loggedinuser store*/
 
-  constructor() { }
-  private static _user: IUser;
-  static set user(val:IUser){
-    if(val){
-      throw 'Error(AuthStoreService): Something is wrong! user has already been set once but you are trying to change it again?!!!'
-    }else {
-      AuthStoreService._user = val;
-    }
-  }
+  @Select() static loggeduser$: Observable<IAuthState>;
 
-  static get user(){
-    return AuthStoreService._user;
+  static user: IUser;
+  static init(){
+    this.loggeduser$
+      .subscribe((val:{user:IUser})=>{
+        AuthStoreService.user = val.user;
+      })
   }
 }

@@ -31,7 +31,6 @@ export class LoginComponent {
           this.loading = false;
         }),
         switchMap((userData: IUser) => {
-          AuthStoreService.user = userData;
           return this.store.dispatch(new SetUser({user: userData}));
         }),
         tap(() => {
