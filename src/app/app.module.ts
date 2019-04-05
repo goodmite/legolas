@@ -22,6 +22,9 @@ import {NbAuthModule, NbPasswordAuthStrategy} from "@nebular/auth";
 import {NbCardModule} from "@nebular/theme";
 import {NgxsStoragePluginModule} from "@ngxs/storage-plugin";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
+import {NodeStateReducer} from "./pages/dashboard/ngxs/state";
+import {EnvironmentStateReducer} from "./pages/dashboard/environment/ngxs/state";
+import {ApplicationStateReducer} from "./pages/applications/ngxs/state";
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, CallbackComponent],
@@ -35,6 +38,9 @@ import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
     CoreModule.forRoot(),
     NgxsModule.forRoot([
       AuthStateReducer,
+      EnvironmentStateReducer,
+      NodeStateReducer,
+      // ApplicationStateReducer
     ]),
     NgxsStoragePluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),//Comment this before pushing to git

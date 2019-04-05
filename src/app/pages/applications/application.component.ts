@@ -4,10 +4,10 @@ import {Router} from "@angular/router";
 
 @Component({
   selector: 'ngx-ecommerce',
-  templateUrl: './e-commerce.component.html',
-  styleUrls: ['./e-commerce.component.scss'],
+  templateUrl: './application.component.html',
+  styleUrls: ['./application.component.scss'],
 })
-export class ECommerceComponent {
+export class ApplicationComponent {
 
   constructor(private dialogService: NbDialogService, private router: Router) {
   }

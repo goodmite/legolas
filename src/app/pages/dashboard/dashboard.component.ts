@@ -1,8 +1,16 @@
-import {Component, OnDestroy, TemplateRef} from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
 import {NbDialogService, NbThemeService} from '@nebular/theme';
-import { takeWhile } from 'rxjs/operators' ;
+import {finalize, takeWhile} from 'rxjs/operators' ;
 import { SolarData } from '../../@core/data/solar';
 import {Router} from "@angular/router";
+import {INode} from "../../../interfaces/node";
+import {NodeService} from "./node.service";
+import {Select, Store} from "@ngxs/store";
+import {AddNode, DeleteNode, SetNodeList} from "./ngxs/actions";
+import {Observable} from "rxjs";
+import {IEnvironmentState} from "./environment/ngxs/state";
+import {IEnvironment} from "../../../interfaces/environment";
+import {INodeState} from "./ngxs/state";
 
 interface CardSettings {
   title: string;
@@ -15,92 +23,35 @@ interface CardSettings {
   styleUrls: ['./dashboard.component.scss'],
   templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnDestroy {
-
-  private alive = true;
-  radioModel = 'script';
-  radioGroupValue;
-  solarValue: number;
-  lightCard: CardSettings = {
-    title: 'Light',
-    iconClass: 'nb-lightbulb',
-    type: 'primary',
-  };
-  rollerShadesCard: CardSettings = {
-    title: 'Roller Shades',
-    iconClass: 'nb-roller-shades',
-    type: 'success',
-  };
-  wirelessAudioCard: CardSettings = {
-    title: 'Wireless Audio',
-    iconClass: 'nb-audio',
-    type: 'info',
-  };
-  coffeeMakerCard: CardSettings = {
-    title: 'Coffee Maker',
-    iconClass: 'nb-coffee-maker',
-    type: 'warning',
-  };
-
-  statusCards: string;
-
-  commonStatusCardsSet: CardSettings[] = [
-    this.lightCard,
-    this.rollerShadesCard,
-    this.wirelessAudioCard,
-    this.coffeeMakerCard,
-  ];
-
-  statusCardsByThemes: {
-    default: CardSettings[];
-    cosmic: CardSettings[];
-    corporate: CardSettings[];
-  } = {
-    default: this.commonStatusCardsSet,
-    cosmic: this.commonStatusCardsSet,
-    corporate: [
-      {
-        ...this.lightCard,
-        type: 'warning',
-      },
-      {
-        ...this.rollerShadesCard,
-        type: 'primary',
-      },
-      {
-        ...this.wirelessAudioCard,
-        type: 'danger',
-      },
-      {
-        ...this.coffeeMakerCard,
-        type: 'secondary',
-      },
-    ],
-  };
+export class DashboardComponent implements OnInit{
 
   constructor(private themeService: NbThemeService,
               private dialogService: NbDialogService,
               private router: Router,
+              private store: Store,
+              private nodeService: NodeService,
               private solarService: SolarData) {
-    this.themeService.getJsTheme()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe(theme => {
-        this.statusCards = this.statusCardsByThemes[theme.name];
+  }
+
+  environments: IEnvironment[];
+  nodes: INode[];
+  @Select() environments$: Observable<IEnvironmentState>;
+  @Select() nodes$: Observable<INodeState>;
+
+  ngOnInit(): void {
+    this.environments$.subscribe((state)=>{
+      this.environments = state.list;
     });
-
-    this.solarService.getSolarData()
-      .pipe(takeWhile(() => this.alive))
-      .subscribe((data) => {
-        this.solarValue = data;
-      });
-  }
-
-  ngOnDestroy() {
-    this.alive = false;
-  }
-
-  test(data){
-    console.log(data);
+    this.nodes$.subscribe((state)=>{
+      if(!state){
+        return;
+      }
+      this.nodes = state.list;
+    })
+    this.nodeService.getAllNodes()
+      .subscribe((nodes:INode[])=>{
+        this.store.dispatch(new SetNodeList({ nodes}))
+      })
   }
 
   open2(dialog: TemplateRef<any>) {
@@ -109,15 +60,25 @@ export class DashboardComponent implements OnDestroy {
       {context: 'this is some additional data passed to dialog'});
   }
 
-  createScript(){
 
+  goToNodePage(node: INode){
+    this.router.navigate(['pages/node'], {queryParams:{id: node._id}});
   }
 
-  createData(){
-
+  createNodeHandler(nodeData:INode, ref){
+    this.nodeService.createNode(nodeData)
+      .pipe(finalize(()=>{
+        ref.close()
+      }))
+      .subscribe((node:INode)=>{
+        this.store.dispatch(new AddNode({node}))
+      })
   }
 
-  goToNodePage(){
-    this.router.navigate(['pages/node']);
+  deleteNodeHandler(node){
+    this.nodeService.deleteNode(node)
+      .subscribe(()=>{
+        this.store.dispatch(new DeleteNode({node}))
+      })
   }
 }

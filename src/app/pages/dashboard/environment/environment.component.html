@@ -12,20 +12,22 @@
   <div class="row mx-0 application-row">
     <div class="application-container pt-3" style="width: 100%">
       <div class="p-2" style="width: 100%">
-        <nb-card class="p-1" [accent]="'info'" *ngFor="let i of [1,2]">
+        <nb-card class="p-1" [accent]="'info'" *ngFor="let env of environments">
           <div class="d-flex align-items-center p-2">
-            <span>Environment {{i}}</span>
+            <span>Environment {{env.name}}</span>
 
             <div class="d-flex ml-auto">
-              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'" (click)="goToEvnDetailPage()">Edit</button>
-              <button nbButton class="btn btn-hero-danger mr-1" [size]="'xxsmall'">Delete</button>
+              <button nbButton class="btn btn-hero-primary mr-1" [size]="'xxsmall'" (click)="goToEvnDetailPage(env)">Edit</button>
+              <button nbButton class="btn btn-hero-danger mr-1" [size]="'xxsmall'" (click)="deleteEnv(env)">Delete</button>
             </div>
 
           </div>
         </nb-card>
       </div>
 
-      <app-splash-screen style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+      <app-splash-screen
+        *ngIf="!environments || !environments.length > 0"
+        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                          headingText="No app"
                          descriptionText="Create one to see it"></app-splash-screen>
 
@@ -35,20 +37,20 @@
 </nb-card>
 
 
-<ng-template #dialog let-data let-ref="dialogRef">
-  <nb-card>
-    <nb-card-header>Create environment</nb-card-header>
-    <nb-card-body>
-      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group"
-            style="width: 450px">
-        <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
-      </form>
-    </nb-card-body>
-    <nb-card-footer>
-      <button nbButton (click)="createNewAppHandler(createAppForm.value); ref.close()">Create</button>
-    </nb-card-footer>
-  </nb-card>
-</ng-template>
+<!--<ng-template #dialog let-data let-ref="dialogRef">-->
+  <!--<nb-card>-->
+    <!--<nb-card-header>Create environment</nb-card-header>-->
+    <!--<nb-card-body>-->
+      <!--<form #createAppForm="ngForm" (ngSubmit)="createNewEnvHandler(createAppForm.value)" class="input-group"-->
+            <!--style="width: 450px">-->
+        <!--<input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">-->
+      <!--</form>-->
+    <!--</nb-card-body>-->
+    <!--<nb-card-footer>-->
+      <!--<button nbButton (click)="createNewEnvHandler(createAppForm.value); ref.close()">Create</button>-->
+    <!--</nb-card-footer>-->
+  <!--</nb-card>-->
+<!--</ng-template>-->
 
 
 
@@ -56,7 +58,7 @@
   <nb-card>
     <nb-card-header>Create Environment</nb-card-header>
     <nb-card-body>
-      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group"
+      <form #createAppForm="ngForm" (ngSubmit)="createNewEnvHandler(createAppForm.value)" class="input-group"
             style="width: 450px">
         <label for="">Node name</label>
         <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
@@ -69,7 +71,7 @@
     </nb-card-body>
     <nb-card-footer>
       <button nbButton (click)="ref.close()" class="mr-1">Close</button>
-      <button nbButton (click)="goToEvnDetailPage();ref.close(); ">Upload and Create</button>
+      <button nbButton (click)="createNewEnvHandler(createAppForm.value);ref.close(); ">Upload and Create</button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

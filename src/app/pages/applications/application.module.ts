@@ -3,7 +3,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ThemeModule } from '../../@theme/theme.module';
-import { ECommerceComponent } from './e-commerce.component';
+import { ApplicationComponent } from './application.component';
 import { ProfitCardComponent } from './profit-card/profit-card.component';
 import { ECommerceChartsPanelComponent } from './charts-panel/charts-panel.component';
 import { OrdersChartComponent } from './charts-panel/charts/orders-chart.component';
@@ -63,7 +63,7 @@ import {EnvironmentComponent} from "../dashboard/environment/environment.compone
     SharedModule
   ],
   declarations: [
-    ECommerceComponent,
+    ApplicationComponent,
     NodeComponent,
     CsvNodeComponent,
     EnvironmentComponent,
@@ -105,4 +105,4 @@ import {EnvironmentComponent} from "../dashboard/environment/environment.compone
     CountryOrdersMapService,
   ],
 })
-export class ECommerceModule { }
+export class ApplicationModule { }

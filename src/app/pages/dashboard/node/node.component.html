@@ -1,14 +1,14 @@
 <div style="height: 100%; display: flex; flex-direction: column; ">
   <div style="height: 60px; display: flex; align-items: flex-start; margin-bottom: 10px">
     <div class="mr-auto">
-      <h2>Node name</h2>
+      <h2>{{node.name}}</h2>
       <p>Script node</p>
     </div>
     <button class="btn btn-primary" style="line-height: 3px; margin-top: 10px; font-size: 11px; margin-right: 10px">Create</button>
     <button class="btn btn-danger" style="line-height: 3px; margin-top: 10px; font-size: 11px">Cancel</button>
-
+    <i>{{node|json}}</i>
   </div>
-  <div style="flex-grow: 1" class="d-flex">
+  <form #nodeForm='ngForm' style="flex-grow: 1" class="d-flex">
     <div style="width: 100%">
       <div style="width: 100%; border: 1px solid #3d3780;" class="p-2">
         <div style="width: 50%; ">
@@ -35,15 +35,17 @@
             </label>
           </div>
 
-          <h5 style="margin-top: 10px">Input 1</h5>
-          <div class="d-flex">
-            <div class="d-flex align-items-center mr-2" style="flex-grow: 1">
-              <label for="" class="mr-1 m-0">Key</label>
-              <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth placeholder="Project">
-            </div>
-            <div class="d-flex align-items-center mr-1" style="flex-grow: 1">
-              <label for="" class="mr-1 m-0" style="flex-shrink: 0">Display name</label>
-              <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth placeholder="Project">
+          <div *ngFor="let input of node.control_inputs">
+            <h5 style="margin-top: 10px">Input 1</h5>
+            <div class="d-flex">
+              <div class="d-flex align-items-center mr-2" style="flex-grow: 1">
+                <label for="" class="mr-1 m-0">Key</label>
+                <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth placeholder="Project">
+              </div>
+              <div class="d-flex align-items-center mr-1" style="flex-grow: 1">
+                <label for="" class="mr-1 m-0" style="flex-shrink: 0">Display name</label>
+                <input ngModel [fieldSize]="'small'" name="name" type="text" nbInput fullWidth placeholder="Project">
+              </div>
             </div>
           </div>
           <button class="btn btn-primary" style="line-height: 3px; margin-top: 10px; font-size: 11px">+ Add Output</button>
@@ -96,6 +98,6 @@
     <div style="width: 400px;height: 100%; border: 1px solid #3d3780;margin-left: auto" class="p-3">
       <h5>Preview</h5>
     </div>
-  </div>
+  </form>
 </div>
 

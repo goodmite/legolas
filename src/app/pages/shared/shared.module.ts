@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SplashScreenComponent} from "../e-commerce/splash-screen/splash-screen.component";
+import {SplashScreenComponent} from "../applications/splash-screen/splash-screen.component";
 
 @NgModule({
   declarations: [

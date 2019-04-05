@@ -24,6 +24,7 @@ export interface IHeaderData {
   'api-key'?: string;
   'bot-access-token'?: string;
   'token'?: string;
+  'x-access-token'?:string,
 }
 
 
