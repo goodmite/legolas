@@ -1,8 +1,12 @@
+<nb-progress-bar *ngIf="showProgressbar" style="position: fixed; top: 0;left: 0; right: 0; z-index: 1000;"
+                 [value]="progressVal" size="xs">xs</nb-progress-bar>
+
 <div class="header-container"
      [class.left]="position === 'normal'"
      [class.right]="position === 'inverse'">
   <div class="logo-containter">
     <!--<a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>-->
+    <a (click)="toggleSidebar()" href="#" class="navigation"><i class="nb-menu"></i></a>
     <div class="logo" (click)="goToHome()"><span>Legolas</span></div>
   </div>
   <!--<ngx-theme-switcher></ngx-theme-switcher>-->

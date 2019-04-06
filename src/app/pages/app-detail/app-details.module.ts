@@ -29,7 +29,7 @@ const PAGES_COMPONENTS = [
   ],
   declarations: [
     ...PAGES_COMPONENTS,
-    OutputFormComponent,
+    // OutputFormComponent,
   ],
 })
 export class AppDetailsModule {

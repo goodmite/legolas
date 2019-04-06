@@ -8,6 +8,7 @@ import {AddEnvironment, DeleteEnvironment, SetEnvironmentList} from "./ngxs/acti
 import {Observable} from "rxjs";
 import {IAuthState} from "../../../@auth/ngxs/state";
 import {IEnvironmentState} from "./ngxs/state";
+import {SharedRouterService} from "../../../shared-router.service";
 
 @Component({
   selector: 'ngx-environment',
@@ -54,11 +55,15 @@ export class EnvironmentComponent implements OnInit {
   }
 
   createNewEnvHandler(env:IEnvironment){
-    debugger;
-    this.environmentService.createEnvironment(env)
-      .subscribe((envData:IEnvironment)=>{
-        this.store.dispatch(new AddEnvironment({environment: envData}));
-      })
+
+    let random = Date.now();
+    console.log(SharedRouterService);
+    SharedRouterService.data[random] = env;
+    this.router.navigate(['/pages/env-list'],{queryParams:{did:random}});
+    // this.environmentService.createEnvironment(env)
+    //   .subscribe((envData:IEnvironment)=>{
+    //     this.store.dispatch(new AddEnvironment({environment: envData}));
+    //   })
   }
 
 }

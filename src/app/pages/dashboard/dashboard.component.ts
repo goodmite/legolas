@@ -11,6 +11,7 @@ import {Observable} from "rxjs";
 import {IEnvironmentState} from "./environment/ngxs/state";
 import {IEnvironment} from "../../../interfaces/environment";
 import {INodeState} from "./ngxs/state";
+import {SharedRouterService} from "../../shared-router.service";
 
 interface CardSettings {
   title: string;
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit{
 
   environments: IEnvironment[];
   nodes: INode[];
+  radioModel
   @Select() environments$: Observable<IEnvironmentState>;
   @Select() nodes$: Observable<INodeState>;
 
@@ -66,13 +68,18 @@ export class DashboardComponent implements OnInit{
   }
 
   createNodeHandler(nodeData:INode, ref){
-    this.nodeService.createNode(nodeData)
-      .pipe(finalize(()=>{
-        ref.close()
-      }))
-      .subscribe((node:INode)=>{
-        this.store.dispatch(new AddNode({node}))
-      })
+
+    ref.close();
+    let random = Date.now();
+    SharedRouterService.data[random] = nodeData;
+    this.router.navigate(['pages/node'], {queryParams:{did:random}});
+    // this.nodeService.createNode(nodeData)
+    //   .pipe(finalize(()=>{
+    //     ref.close()
+    //   }))
+    //   .subscribe((node:INode)=>{
+    //     this.store.dispatch(new AddNode({node}))
+    //   })
   }
 
   deleteNodeHandler(node){

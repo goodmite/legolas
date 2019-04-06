@@ -7,6 +7,7 @@ import { LayoutService } from '../../../@core/utils';
 import {NbAuthJWTToken, NbAuthService} from "@nebular/auth";
 import {AuthStoreService} from "../../../@auth/ngxs/auth-store.service";
 import {CustomAuthService} from "../../../@auth/auth.service";
+import {EventService} from "../../../event.service";
 
 @Component({
   selector: 'ngx-header',
@@ -16,6 +17,9 @@ import {CustomAuthService} from "../../../@auth/auth.service";
 export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
+  showProgressbar
+  currentIntervalRef
+  progressVal = 0
   myAuthStoreService = AuthStoreService;
   user: any;
 
@@ -33,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
         if (token.isValid()) {
         // @ts-ignore
-          debugger;
+
           this.user = token.getPayload(); // here we receive a payload from the token and assigne it to our `user` variable
         }
 
@@ -41,8 +45,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initializeProgressBarSubscription();
     this.userService.getUsers()
       .subscribe((users: any) => this.user = users.nick);
+
   }
 
   toggleSidebar(): boolean {
@@ -70,5 +76,32 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     this.customAuthService.logout()
+  }
+
+  initializeProgressBarSubscription() {
+    EventService.progressBar$.subscribe(({loading, value}) => {
+
+      if (loading) {/*if loading = true, slowly increase progressbar*/
+        this.showProgressbar = true;
+        this.currentIntervalRef && clearInterval(this.currentIntervalRef);
+        this.progressVal = value;
+        // this.progressVal = 0;
+        this.currentIntervalRef = setInterval(() => {
+          if (this.progressVal < 80) {
+            ++this.progressVal;
+          } else {
+            this.progressVal = this.progressVal + 0.2;
+          }
+        }, 300);
+      } else {
+        setTimeout(() => {
+          this.progressVal = 100;
+          this.currentIntervalRef && clearInterval(this.currentIntervalRef);
+          setTimeout(() => {
+            this.showProgressbar = false;
+          }, 500);
+        }, 0);
+      }
+    });
   }
 }

@@ -9,11 +9,11 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 import {LoginComponent} from "./@auth/login/login.component";
-import {CallbackComponent} from "./@auth/callback/callback.component";
 import {LoginGaurdService} from "./login-gaurd.service";
+import {AuthGaurdService} from "./auth-gaurd.service";
 
 const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },//http://localhost:4200/#/pages/dashboard
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule',canLoad: [AuthGaurdService] },//http://localhost:4200/#/pages/dashboard
   {
     path: 'login',//http://localhost:4200/#/login
     component: LoginComponent,

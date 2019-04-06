@@ -44,7 +44,7 @@ export class EnvironmentStateReducer {
 
   @Action(SetEnvironmentList)
   setEnvironmentList({patchState, setState, getState, dispatch}: StateContext<IEnvironmentState>, {payload}: SetEnvironmentList) {
-    debugger;
+
     patchState({list: payload.environments});
   }
 

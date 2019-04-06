@@ -4,7 +4,7 @@
       <h4 class="title">My Environment</h4>
       <button nbButton
               (click)="open2(dataModal)"
-              class="btn btn-hero-success" [size]="'xxsmall'">Create New Environment
+              class="btn btn-hero-success" [size]="'xxsmall'">+ New Environment
       </button>
     </div>
   </div>
@@ -26,7 +26,7 @@
       </div>
 
       <app-splash-screen
-        *ngIf="!environments || !environments.length > 0"
+        *ngIf="!environments || !(environments.length > 0)"
         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
                          headingText="No app"
                          descriptionText="Create one to see it"></app-splash-screen>
@@ -69,9 +69,13 @@
         </div>
       </form>
     </nb-card-body>
-    <nb-card-footer>
-      <button nbButton (click)="ref.close()" class="mr-1">Close</button>
-      <button nbButton (click)="createNewEnvHandler(createAppForm.value);ref.close(); ">Upload and Create</button>
+    <nb-card-footer class="d-flex">
+      <!--<button nbButton (click)="ref.close()" class="mr-1">Close</button>-->
+      <button class="ml-auto" nbButton (click)="createNewEnvHandler(createAppForm.value);ref.close(); ">
+        Next
+        <i class="fa fa-caret-right "></i>
+      </button>
+
     </nb-card-footer>
   </nb-card>
 </ng-template>

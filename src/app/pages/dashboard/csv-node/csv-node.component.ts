@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CsvNodeComponent implements OnInit {
 
   constructor() { }
-
+  radioModel
   ngOnInit() {
   }
 

@@ -9,6 +9,7 @@ import { AppDetailComponent } from './app-detail/app-detail.component';
 import { OutputFormComponent } from './app-detail/output-form/output-form.component';
 import {SharedModule} from "./shared/shared.module";
 import {ApplicationModule} from "./applications/application.module";
+import { LegoButtonComponent } from './lego-button/lego-button.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
@@ -27,6 +28,7 @@ const PAGES_COMPONENTS = [
     ...PAGES_COMPONENTS,
     AppDetailComponent,
     OutputFormComponent,
+    LegoButtonComponent,
   ],
   exports:[
 

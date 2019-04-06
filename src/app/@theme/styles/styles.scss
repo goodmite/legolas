@@ -1,15 +1,12 @@
 // themes - our custom or/and out of the box themes
 @import 'themes';
-
 // framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
 @import '~@nebular/auth/styles/all';
 @import '~@nebular/bootstrap/styles/globals';
 // ...
-
 // global app font size
 @import './font-size';
-
 // loading progress bar theme
 @import './pace.theme';
 
@@ -23,4 +20,44 @@
 
   // loading progress bar
   @include ngx-pace-theme();
-};
+}
+
+;
+
+.mini-button {
+  /*overrides existing styles*/
+  line-height: 3px !important;
+  margin-top: 10px !important;
+  font-size: 11px !important;
+  margin-right: 10px !important;
+}
+
+.mini-select {
+  /*overrides existing styles*/
+  height: 30px !important;
+  padding: 0 5px !important;
+}
+
+.border-blue {
+  border: 1px solid #3d3780;
+}
+
+label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 16px;
+
+  span {
+    width: 120px;
+    margin-right: 5px
+  }
+}
+
+
+app-splash-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -7,6 +7,7 @@ import {IEnvironmentState} from "../ngxs/state";
 import {FormGroup} from "@angular/forms";
 import {EnvironmentService} from "../environment.service";
 import {AddEnvironment, UpdateEnvironment} from "../ngxs/actions";
+import {SharedRouterService} from "../../../../shared-router.service";
 
 @Component({
   selector: 'ngx-environment-detail',
@@ -26,11 +27,21 @@ export class EnvironmentDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.queryParamMap.get('id');
+    let did = this.activatedRoute.snapshot.queryParamMap.get('did');
+    if(did){
+      this.environment = SharedRouterService.data[did];
+    }
+
+
     this.environments$.subscribe((state)=>{
       if(!state) return;
-      this.environment = state.list.find(env => env._id === this.id);
-      this.environmentForm.patchValue(this.environment);
+      let env = state.list.find(env => env._id === this.id);
+      if(env){
+        this.environment = env;
+        this.environmentForm.patchValue(this.environment);
+      }
     });
+    this.environmentForm.patchValue(this.environment);
   }
 
   cancel(){
@@ -47,7 +58,9 @@ export class EnvironmentDetailComponent implements OnInit {
     }else {
       this.environmentService.createEnvironment(updatedEnv)
         .subscribe((data)=>{
-          this.store.dispatch(new AddEnvironment({environment: data}))
+          this.id = data._id;
+          this.store.dispatch(new AddEnvironment({environment: data}));
+          this.router.navigate(['/pages/env-list'],{queryParams:{id:data._id}})
         })
     }
   }

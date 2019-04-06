@@ -3,11 +3,13 @@ import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {INodeState} from "../ngxs/state";
 import {INode} from "../../../../interfaces/node";
-import {SetNodeList} from "../ngxs/actions";
+import {AddNode, SetNodeList} from "../ngxs/actions";
 import {NbDialogService, NbThemeService} from "@nebular/theme";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NodeService} from "../node.service";
 import {SolarData} from "../../../@core/data/solar";
+import {finalize} from "rxjs/operators";
+import {SharedRouterService} from "../../../shared-router.service";
 
 @Component({
   selector: 'ngx-node',
@@ -18,7 +20,9 @@ export class NodeComponent implements OnInit {
 
   @Select() nodes$: Observable<INodeState>;
   node:INode;
+  radioModel;
   id:string;
+  did:string;
   constructor(private themeService: NbThemeService,
               private dialogService: NbDialogService,
               private router: Router,
@@ -28,11 +32,27 @@ export class NodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger;
     this.id = this.activatedRoute.snapshot.queryParamMap.get('id');
+    this.did = this.activatedRoute.snapshot.queryParamMap.get('did');
+    this.node = SharedRouterService.data[this.did];
+    console.log('hello', this.node);
     this.nodes$.subscribe((state)=>{
-      this.node = state.list.find((node)=>node._id === this.id);
+      let node = state.list.find((node)=>node._id === this.id);
+      if(node){
+        this.node = node;
+      }
     });
   }
 
+  createNode(nodeData){
+    this.nodeService.createNode(nodeData)
+      .subscribe((node:INode)=>{
+        this.store.dispatch(new AddNode({node}))
+      })
+  }
 
+  goBack(){
+    this.router.navigate(['pages/node-list']);
+  }
 }

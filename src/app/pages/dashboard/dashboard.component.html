@@ -1,29 +1,18 @@
-<nb-card class="d-flex flex-column p-2 pb-0 mb-0" style="height: 100%">
-  <div style="display: flex;">
+<nb-card class="d-flex flex-column p-2 pb-0 mb-0 h-100" >
+  <div class="d-flex">
     <h1 class="m-1">My nodes</h1>
     <button nbButton class="btn mr-1 ml-auto" [size]="'xxsmall'" (click)="open2(dialog)">+ Script Node</button>
     <button nbButton class="btn " [size]="'xxsmall'" (click)="open2(dataModal)">+ Data node</button>
   </div>
-  <div class="my-2" style="display: flex">
+  <div class="d-flex my-2">
 
     <div [(ngModel)]="radioModel" ngbRadioGroup
          style="width: 250px; margin-left: 10px"
          class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group">
-      <label
-        style="
-    display: flex;
-    justify-content: center;
-    align-items: center;"
-        ngbButtonLabel class="btn btn-outline-primary p-1">
+      <label ngbButtonLabel class="btn btn-outline-primary p-1 mr-0">
         <input ngbButton type="radio" value="control"> Control
       </label>
-      <label
-        style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-"
-        ngbButtonLabel class="btn btn-outline-primary p-1">
+      <label ngbButtonLabel class="btn btn-outline-primary p-1">
         <input ngbButton type="radio" value="value"> Value
       </label>
     </div>
@@ -45,7 +34,7 @@
         </nb-card>
       </div>
 
-      <app-splash-screen *ngIf="!(nodes && nodes.length>0)" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+      <app-splash-screen *ngIf="!(nodes && nodes.length>0)"
                          headingText="No app"
                          descriptionText="Create one to see it"></app-splash-screen>
 
@@ -67,7 +56,7 @@
         <textarea ngModel name="description" type="text" nbInput fullWidth placeholder="Project"></textarea>
         <br>
         <div class="form-group mt-1">
-          <label>Environment</label>
+          <label class="justify-content-start">Environment</label>
           <select name="environmentID" ngModel class="form-control">
             <option *ngFor="let env of environments" value="{{env._id}}">{{env.name}}</option>
           </select>
@@ -75,7 +64,10 @@
       </form>
     </nb-card-body>
     <nb-card-footer>
-      <button nbButton class="btn btn-primary" (click)="createNodeHandler(createAppForm.value, ref)">Create</button>
+      <button nbButton class="btn btn-primary" (click)="createNodeHandler(createAppForm.value, ref)">
+        Next
+        <i class="fa fa-caret-right"></i>
+      </button>
 
     </nb-card-footer>
   </nb-card>
@@ -84,15 +76,15 @@
   <nb-card>
     <nb-card-header>Create Data Node</nb-card-header>
     <nb-card-body>
-      <form #createAppForm="ngForm" (ngSubmit)="createNewAppHandler(createAppForm.value)" class="input-group"
+      <form #createAppForm="ngForm" class="input-group"
             style="width: 450px">
-        <input type="text" ngModel name="node_type" hidden value="script">
+        <input type="text" [ngModel]="'data'" name="node_type" hidden>
         <label for="">Node name</label>
         <input ngModel name="name" type="text" nbInput fullWidth placeholder="Project">
 
         <div class="form-group mt-2">
-          <label for="">Data type</label>
-          <nb-radio-group ngModel name="file_format"  style="display: flex; align-content: center">
+          <label class="justify-content-start">Data type</label>
+          <nb-radio-group ngModel name="file_format" class="d-flex">
             <nb-radio
               [value]="'csv'">
               CSV
@@ -107,14 +99,17 @@
         <br>
         <!--TODO: following-->
         <div class="form-group">
-          <label>Multiple Select</label>
+          <label class="justify-content-start">Multiple Select</label>
           <input class="form-control" type="file">
         </div>
       </form>
     </nb-card-body>
     <nb-card-footer>
       <!--<button nbButton (click)="ref.close()" class="mr-1">Close</button>-->
-      <button nbButton (click)="createNodeHandler(createAppForm.value, ref)">Create</button>
+      <button nbButton (click)="createNodeHandler(createAppForm.value, ref)">
+        Next
+        <i class="fa fa-caret-right"></i>
+      </button>
     </nb-card-footer>
   </nb-card>
 </ng-template>

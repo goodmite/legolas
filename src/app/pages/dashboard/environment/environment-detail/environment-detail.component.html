@@ -1,48 +1,53 @@
 <nb-card class="d-flex flex-column p-3 pb-0 mb-0" style="height: 100%">
-  <div style="display: flex; align-items: center">
-    <div>
-      <h1 class="m-1">{{environment?.name|| 'New Environment'}}</h1>
-      <p class="m-1">Docket Configurations</p>
-    </div>
-    <button nbButton class="btn mr-1 ml-auto" [size]="'xxsmall'" (click)="cancel()">Cancel</button>
-    <button nbButton class="btn " [size]="'xxsmall'" (click)="saveOrUpdate(environmentForm.value)">{{id?'Update':'Create'}}</button>
-  </div>
-
-
-  <div class="row mx-0 application-row w-100">
-    <div class="application-container pt-3 w-100">
-      <div class="p-2">
-        <h3>Parameters</h3>
-        <form [formGroup]="environmentForm" class="input-group"
-              style="width: 100%">
-
-          <div class="d-flex; align-items-center mb-1">
-            <label for="">Minumum container</label>
-            <input type="number" formControlName="min_server_count" nbInput>
-            <label for="">Maximum container</label>
-            <input type="number" formControlName="max_server_count" nbInput>
-            <label for="">Desired container</label>
-            <input type="number" formControlName="desired_count" nbInput>
-          </div>
-          <div class="d-flex; align-items-center" style="width: 100%">
-            <label for="">Memory(GB)</label>
-            <input formControlName="memory" nbInput>
-            <label for="">CPU</label>
-            <input formControlName="vcpu" nbInput>
-          </div>
-          <h3>Docker file</h3>
-          <textarea style="height: 200px" formControlName="docker_file" nbInput fullWidth
-                    placeholder="Project"></textarea>
-        </form>
+  <form [formGroup]="environmentForm">
+    <div style="display: flex; align-items: center" >
+      <div>
+        <div class="d-flex align-items-center">
+          <h1 class="m-1 mr-2">{{environment?.name|| 'New Environment'}}</h1>
+          <!--<label for="">Environment Name</label>-->
+          <input *ngIf="!environment?.name" style="width: 150px" type="text" formControlName="name" nbInput placeholder="Env Name">
+        </div>
+        <p class="m-1">Docket Configurations</p>
       </div>
-
-
-      <app-splash-screen *ngIf="!id" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"
-                         headingText="No app"
-                         descriptionText="Create one to see it"></app-splash-screen>
-
+      <button nbButton class="btn btn-outline-danger mr-1 ml-auto" [size]="'xxsmall'" (click)="cancel()">Cancel</button>
+      <button nbButton [disabled]="!environmentForm.valid" class="btn " [size]="'xxsmall'" (click)="saveOrUpdate(environmentForm.value)">{{id?'Update':'Create'}}</button>
     </div>
-  </div>
+
+
+    <div class="row mx-0 application-row w-100">
+      <div class="application-container pt-3 w-100">
+        <div class="p-2">
+          <h3>Parameters</h3>
+          <div class="input-group"
+                style="width: 100%">
+            <div class="d-flex; align-items-center mb-1">
+              <label for="">Minumum container</label>
+              <input type="number" formControlName="min_server_count" nbInput>
+              <label for="">Maximum container</label>
+              <input type="number" formControlName="max_server_count" nbInput>
+              <label for="">Desired container</label>
+              <input type="number" formControlName="desired_count" nbInput>
+            </div>
+            <div class="d-flex; align-items-center" style="width: 100%">
+              <label for="">Memory(GB)</label>
+              <input formControlName="memory" nbInput>
+              <label for="">CPU</label>
+              <input formControlName="vcpu" nbInput>
+            </div>
+            <h3>Docker file</h3>
+            <textarea style="height: 200px" formControlName="docker_file" nbInput fullWidth
+                      placeholder="Project"></textarea>
+          </div>
+        </div>
+
+
+        <!--<app-splash-screen *ngIf="!id" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"-->
+                           <!--headingText="No app"-->
+                           <!--descriptionText="Create one to see it"></app-splash-screen>-->
+
+      </div>
+    </div>
+  </form>
 </nb-card>
 
 <ng-template #dialog let-data let-ref="dialogRef">
