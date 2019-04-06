@@ -6,14 +6,14 @@
   </div>
   <div class="d-flex my-2">
 
-    <div [(ngModel)]="radioModel" ngbRadioGroup
+    <div [(ngModel)]="node_type" ngbRadioGroup
          style="width: 250px; margin-left: 10px"
          class="btn-group btn-group-toggle btn-outline-toggle-group btn-group-full-width btn-toggle-radio-group">
       <label ngbButtonLabel class="btn btn-outline-primary p-1 mr-0">
-        <input ngbButton type="radio" value="control"> Control
+        <input ngbButton type="radio" value="script"> Script
       </label>
       <label ngbButtonLabel class="btn btn-outline-primary p-1">
-        <input ngbButton type="radio" value="value"> Value
+        <input ngbButton type="radio" value="value"> Data
       </label>
     </div>
   </div>
@@ -21,17 +21,23 @@
   <div class="row mx-0 application-row w-100">
     <div class="application-container pt-3 w-100">
       <div class="p-2">
-        <nb-card class="p-1" [accent]="'info'" *ngFor="let node of nodes">
-          <div class="d-flex align-items-center p-2">
-            <span>{{node.name}}</span>
+        <ng-container *ngFor="let node of nodes">
+          <nb-card class="p-1" [accent]="'info'" *ngIf="node.node_type === node_type">
+              <div class="d-flex align-items-center p-2">
+                <span>{{node.name}}</span>
 
-            <div class="d-flex ml-auto">
-              <button nbButton class="btn btn-hero-primary mr-1" (click)="goToNodePage(node)" [size]="'xxsmall'">Edit</button>
-              <button nbButton class="btn btn-hero-danger mr-1" (click)="deleteNodeHandler(node)" [size]="'xxsmall'">Delete</button>
-            </div>
+                <div class="d-flex ml-auto">
+                  <button nbButton class="btn btn-hero-primary mr-1" (click)="goToNodePage(node)" [size]="'xxsmall'">
+                    Edit
+                  </button>
+                  <button nbButton class="btn btn-hero-danger mr-1" (click)="deleteNodeHandler(node)"
+                          [size]="'xxsmall'">Delete
+                  </button>
+                </div>
 
-          </div>
-        </nb-card>
+              </div>
+          </nb-card>
+        </ng-container>
       </div>
 
       <app-splash-screen *ngIf="!(nodes && nodes.length>0)"

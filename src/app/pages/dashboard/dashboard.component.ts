@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit{
 
   environments: IEnvironment[];
   nodes: INode[];
-  radioModel
+  node_type = 'script';
   @Select() environments$: Observable<IEnvironmentState>;
   @Select() nodes$: Observable<INodeState>;
 
