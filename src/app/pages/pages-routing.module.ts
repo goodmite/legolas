@@ -2,7 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { NodeListComponent } from './dashboard/node-list.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import {AppDetailComponent} from "./app-detail/app-detail.component";
 import {NodeComponent} from "./dashboard/node/node.component";
@@ -22,7 +22,7 @@ const routes: Routes = [{
     component: AppDetailComponent,
   }, {
     path: 'node-list',
-    component: DashboardComponent,
+    component: NodeListComponent,
   },{
     path: 'node',
     component: NodeComponent,

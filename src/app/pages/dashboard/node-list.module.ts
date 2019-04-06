@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 
 import { ThemeModule } from '../../@theme/theme.module';
-import { DashboardComponent } from './dashboard.component';
+import { NodeListComponent } from './node-list.component';
 import { StatusCardComponent } from './status-card/status-card.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { RoomsComponent } from './rooms/rooms.component';
@@ -35,7 +35,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule
   ],
   declarations: [
-    DashboardComponent,
+    NodeListComponent,
     StatusCardComponent,
     TemperatureDraggerComponent,
     ContactsComponent,

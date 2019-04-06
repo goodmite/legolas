@@ -21,10 +21,10 @@ interface CardSettings {
 
 @Component({
   selector: 'ngx-dashboard',
-  styleUrls: ['./dashboard.component.scss'],
-  templateUrl: './dashboard.component.html',
+  styleUrls: ['./node-list.component.scss'],
+  templateUrl: './node-list.component.html',
 })
-export class DashboardComponent implements OnInit{
+export class NodeListComponent implements OnInit{
 
   constructor(private themeService: NbThemeService,
               private dialogService: NbDialogService,
