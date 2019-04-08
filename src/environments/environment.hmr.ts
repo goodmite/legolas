@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
     hmr: true,
-    backend_root:'http://52.41.160.116',
+    backend_root:'https://api.legolas.in/',
     'API_KEY':'54asdkj1209nksnda'
 };
